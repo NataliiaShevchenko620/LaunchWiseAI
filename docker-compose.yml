@@ -1,0 +1,84 @@
+services:
+
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+
+  chroma:
+    build:
+      context: .                      # project root
+      dockerfile: chroma/Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -H \"Accept: application/json\" http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections || exit 1"]
+      interval: 10s
+      retries: 5
+
+  fastmcp:
+    build:
+      context: .
+      dockerfile: src/launchwiseai/mcp/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - chroma-data:/data
+    environment:
+      - CHROMA_DATA_PATH
+      - MCP_URL
+      - POSTGRES_PASSWORD
+      - GOOGLE_API_KEY
+      - CENSUS_API_KEY
+      - GPLACES_API_KEY
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: src/launchwiseai/api/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL
+      - POSTGRES_PASSWORD
+      - MCP_URL
+      - CHROMA_DATA_PATH
+      - GOOGLE_API_KEY
+      - CENSUS_API_KEY
+      - GPLACES_API_KEY
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+      fastmcp:
+        condition: service_started
+
+  react:
+    build:
+      context: ./src/launchwiseai/launchwise-react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - fastapi
+
+volumes:
+  chroma-data:

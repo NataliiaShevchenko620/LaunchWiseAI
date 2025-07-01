@@ -1,0 +1,16 @@
+Industry: Cafe
+
+1. Demographics:
+- % of Population aged 18–35: ≥ 25%
+- Males/Female population: Balanced
+
+2. Income:
+- Per capita income: $35,000–$65,000
+
+3. Employment:
+- Average annual wage: $25,000–$40,000
+- Annual employment: Must exceed 500 in county
+
+4. Market Saturation:
+- Industry share in employment: ≤ 3.5%
+- Annual establishments: ≤ 2 cafés per 10,000 residents
