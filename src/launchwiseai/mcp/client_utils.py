@@ -1,24 +1,31 @@
 import asyncio
-import sys
 import os
 from mcp.client.streamable_http import streamablehttp_client
 from mcp import ClientSession
 
 MCP_URL = os.getenv("MCP_URL")
 
+# Call MCP tool functions
 async def mcp_call(name: str, params: dict):
     async with streamablehttp_client(MCP_URL) as (r, w, _):
-        async with ClientSession(r, w) as sess:
-            await sess.initialize()
-            return await sess.call_tool(name, params)
+        async with ClientSession(r, w) as session:
+            await session.initialize()
+            return await session.call_tool(name, params)
 
 def sync_mcp(name: str, params: dict):
-    print(f"Call {name} with {params}")
-
-    print(f"sys.platform: {sys.platform}")
-
-    if sys.platform.startswith("win"):
-        # Use SelectorEventLoop instead of ProactorEventLoop
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
+    # pass all keyword args through directly
     return asyncio.run(mcp_call(name, params))
+    
+# Get MCP tools specifications function
+async def fetch_tool_specs():
+    async with streamablehttp_client(MCP_URL) as (r, w, _):
+        async with ClientSession(r, w) as session:
+            await session.initialize()
+            return await session.list_tools()
+
+# Get prompt from MCP server function
+async def get_prompt(prompt_name: str):
+    async with streamablehttp_client(MCP_URL) as (r, w, _):
+        async with ClientSession(r, w) as session:
+            await session.initialize()
+            return await session.get_prompt(prompt_name)

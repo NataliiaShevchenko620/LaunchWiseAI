@@ -76,7 +76,7 @@ services:
       context: ./src/launchwiseai/launchwise-react-app
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "80:80"   # "3000:80" for local deployment to Docker container, "80:80" for producition deployment to VM
     depends_on:
       - fastapi
 

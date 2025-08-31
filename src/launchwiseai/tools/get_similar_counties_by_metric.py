@@ -5,7 +5,7 @@ from launchwiseai.data.postgres.launchwise_db_conn import get_connection
 
 def get_similar_counties_by_metric(county_name: str, state_name: str, metric_name: str) -> str:
     """
-    Finds the top 100 counties in the US with the most similar metric value to the given county.
+    Finds the top 5 counties in the US with the most similar metric value to the given county.
     Similarity means that the metric is between 90% and 110% of the current county's metric.
 
     Args:
@@ -60,7 +60,7 @@ def get_similar_counties_by_metric(county_name: str, state_name: str, metric_nam
         CROSS JOIN CurrentCounty cc
         WHERE ac.metric_value BETWEEN cc.metric_value * 0.90 AND cc.metric_value * 1.10
         ORDER BY ABS(ac.metric_value - cc.metric_value)
-        LIMIT 10
+        LIMIT 5
     """)
 
     conn = None

@@ -19,6 +19,9 @@ FROM nginx:alpine
 # Copy the built static files into Nginx’s html folder
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Overwrite default nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose the standard HTTP port
 EXPOSE 80
 

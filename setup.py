@@ -9,7 +9,7 @@ setup(
         "fastapi",
         "uvicorn[standard]",
         "langchain[community,google-genai]==0.3.23",
-        "langgraph==0.4.5",
+        "langgraph==0.6.5",
         "google-genai==1.7.0",
         "googlemaps==4.10.0",
         "mcp[cli]",

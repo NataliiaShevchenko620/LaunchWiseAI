@@ -17,8 +17,7 @@ def call_llm_model_with_tools(model_name: str, contents: list, tools: list = Non
         - Claude and OpenAI chat‐styled endpoints do support a distinct system role — but Google’s current API does not.
 
         - By normalizing or merging your system instructions into a user frame 
-          (or renaming them under the hood), you keep the rest of your MCP‐style code unchanged, but satisfy Gemini’s requirements.
-        
+          (or renaming them under the hood), you keep the rest of your MCP‐style code unchanged, but satisfy Gemini’s requirements.        
         """
 
         # Extract system role's text into the system_instruction

@@ -14,7 +14,8 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "http://localhost"
+    "http://localhost",
+    "http://172.191.79.198"
 ]
 
 app.add_middleware(
@@ -64,12 +65,3 @@ def chat_endpoint(request: ChatRequest):
         launchwise_db.clear_inline_data()
 
     return ChatResponse(reply=text, parts=parts, state=state)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(
-        "launchwiseai.api.main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-    )

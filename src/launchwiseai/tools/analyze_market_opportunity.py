@@ -15,7 +15,7 @@ def analyze_market_opportunity(county_name: str, state_name: str, business: str)
     """
 
     get_similar_counties_by_metric_description = """
-    Finds the top 100 counties in the US with the most similar metric value to the given county.
+    Finds the top 5 counties in the US with the most similar metric value to the given county.
     Similarity means that the metric is between 90% and 110% of the current county's metric.
 
     Args:
@@ -54,7 +54,7 @@ def analyze_market_opportunity(county_name: str, state_name: str, business: str)
         You are a business opportunity analyst.
         Your task is to assess the saturation of a business market in a given county.
         You must:
-        1. Call get_similar_counties_by_metric to get top 10 similar counties for the specified county and state and metric "Per capita income"
+        1. Call get_similar_counties_by_metric to get top 5 similar counties for the specified county and state and metric "Per capita income"
         2. Call count_competitors for each county (including the target county and its similar peers) to obtain competitor counts.
         3. Compute the median competitor count and compare it with the target county's competitor count to determine saturation.
         4. Call create_chart to generate a column chart that shows competitor counts for the target county, similar counties, and the median value. Median value should be visualized as a red dashed line.\n"
