@@ -2,6 +2,7 @@
 
 **LaunchWiseAI** is a smart, AI-powered startup launch assistant designed to help entrepreneurs and product teams streamline market entry, tooling, and research. It's ideal for bringing new products to market faster, with data-led insights and automation.
 
+![title](Images/title.png)
 ---
 
 ## 1. Business Goal
@@ -12,6 +13,12 @@ LaunchWiseAI aims to **empower startup founders and product teams** by providing
 - A centralized platform to accelerate launch preparation
 
 In short, it guides users through the startup launch process seamlessly—from research to MVP readiness.
+
+![conversation](Images/conversation.png)
+
+You can firnd the working version of the application at [LaunchWise AI](http://172.191.79.198/) web site.
+
+More details about the application can be found in [Power Point](Presentation/LaunchWiseAI.pptx) presentation.
 
 ---
 
